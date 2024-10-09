@@ -1,0 +1,24 @@
+[
+  {
+    "title": "Las 4 del dia",
+    "drawable": "",
+    "submenu": "",
+    "iap": "false",
+    "tabs": [
+      {
+        "title": "Imagenes",
+        "provider": "webview",
+        "arguments": [
+          "https://carribros.github.io/microapps/las4deldia_09082024.html"
+        ]
+      },
+      {
+        "title": "Imagen Sorpresa",
+        "provider": "webview",
+        "arguments": [
+          "https://carribros.github.io/microapps/imagen_aleatoria_sencillaprogramada.html"
+        ]
+      }
+    ]
+  }
+]
