@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microapps</title>
+    <!-- Incluye Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fce4ec;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: -10px;
+            padding: 20px; 
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        .categories {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .category-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100vw; /* Ocupa todo el ancho de la pantalla */
+            padding: 20px;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            text-align: left;
+            background-color: transparent; /* Para quitar cualquier color de fondo predeterminado */
+        }
+
+        .category-btn i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        .category-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .question-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .question-content p {
+            margin: 0 20px;
+            font-size: 18px;
+        }
+
+        .questionsContainer {
+            margin-top: 50px;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #2196f3;
+        }
+
+        .nav-btn:hover {
+            color: #1976d2;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            font-size: 36px;
+            cursor: pointer;
+            color: #2196f3;
+            margin: 20px;
+        }
+
+        .icon-btn:hover {
+            color: #1976d2;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .category-btn {
+                width: 100%;
+            }
+
+            .categories {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .share-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #2196f3;
+            margin-right: 20px; /* Espacio entre botones */
+        }
+
+        .nav-btn, .icon-btn {
+            font-size: 22px; /* Tamaño más pequeño para los botones de navegación y de iconos */
+        }
+
+        #categoryTitle {
+            margin-top: 70px;
+            margin-bottom: 40px; /* Espacio superior del contenedor de preguntas y entre el titulo y la pregunta */
+        }
+
+        #timer {
+            font-size: 34px; /* Tamaño de fuente más grande */
+            margin-top: 10px; /* Espacio adicional en la parte superior */
+        }
+
+        .red { background-color: #FF6B6B; }
+        .orange { background-color: #FFA06D; }
+        .yellow { background-color: #FFD56B; }
+        .green { background-color: #27CE55; }
+        .blue { background-color: #6DBEFF; }
+        .purple { background-color: #C76DFF; }
+        .pink { background-color: #FF6DBE; }
+        .cyan { background-color: #31C6FF; }
+
+        subtitulo {
+            font-size: 14px;
+            color: #555;
+            text-align: center;
+            margin-top: 0.5em;
+            margin-bottom: 1em;
+            display: block;
+        }
+
+        .answer-content {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #555;
+            text-align: center;
+        }
+		
+		.icon-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Estilos para la ventana modal */
+.modal {
+    display: none; /* Oculta la modal por defecto */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Estilos para la ventana modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 30% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 70%;
+    max-width: 200px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    background-color: #3498db; /* Cambiar el color de fondo a azul */
+    color: white; /* Cambiar el color del texto a blanco */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal-btn:hover {
+    background-color: #2980b9; /* Cambiar el color de fondo al pasar el mouse */
+}
+
+.retardotitulo{
+font-size:16px;
+font-weight: bold;
+}
+#timer {
+    font-size: 24px; /* Cambiado a 24px para aumentar el tamaño del texto */
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+#countdown {
+    font-size: 24px; /* Tamaño del texto aumentado a 24px */
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container" id="categoriesContainer">
+        <h1>Desafío Bíblico</h1>
+        <subtitulo>Responde antes de que el reloj llegue a cero</subtitulo> <!-- Etiqueta personalizada -->
+        <div class="categories">
+            <button class="category-btn red" onclick="selectCategory(0)">
+               <i class="fas fa-bullseye"></i>
+                <span>Génesis</span>
+            </button>
+            <button class="category-btn orange" onclick="selectCategory(1)">
+                <i class="fas fa-bullseye"></i>
+                <span>Éxodo</span>
+            </button>
+            <button class="category-btn yellow" onclick="selectCategory(2)">
+               <i class="fas fa-bullseye"></i>
+                <span>Levítico</span>
+            </button>
+            <button class="category-btn green" onclick="selectCategory(3)">
+                <i class="fas fa-bullseye"></i>
+                <span>Números</span>
+            </button>
+            <button class="category-btn blue" onclick="selectCategory(4)">
+                <i class="fas fa-bullseye"></i>
+                <span>Deuteronomio</span>
+            </button>
+         
+        </div>
+    </div>
+
+    <div class="container hidden" id="questionsContainer">
+        <h2 id="categoryTitle"></h2>
+        <span id="questionCounter" style="font-size: 16px; color: #00000;"></span> <!-- Agregado el contador de preguntas -->
+        <div class="question-content">
+            <button class="nav-btn" onclick="prevQuestion()"><i class="fas fa-chevron-left"></i></button>
+            <p id="questionText"></p>
+            <button class="nav-btn" onclick="nextQuestion()"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div id="answerContent" class="answer-content"></div>
+		
+		
+        
+		
+		<div class="icon-buttons">
+			<button class="icon-btn" onclick="shareQuestion()"><i class="fab fa-whatsapp"></i></button>
+			<button class="icon-btn" onclick="shareApp()"><i class="fas fa-share-alt"></i></button>
+			<button class="icon-btn" onclick="openTimerModal()"><i class="far fa-clock"></i></button>
+			<button class="icon-btn" onclick="goBack()"><i class="fas fa-th-large"></i></button>
+		</div>
+
+		
+		
+		
+        <div id="countdown"></div>
+        <audio id="alarmAudio" src="https://calcutrader.com/2024/alarma.mp3"></audio>
+        <p id="timer"></p>
+
+
+
+
+<!-- Ventana modal -->
+<div id="timerModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeTimerModal()">&times;</span>
+		 <p class="retardotitulo">Elige el retardo de respuesta</p> <!-- Título de la ventana modal -->
+		 <button class="modal-btn" onclick="setDelay(3)">3 segundos</button>
+        <button class="modal-btn" onclick="setDelay(5)">5 segundos</button>
+        <button class="modal-btn" onclick="setDelay(10)">10 segundos</button>
+        <button class="modal-btn" onclick="setDelay(15)">15 segundos</button>
+        <button class="modal-btn" onclick="setDelay('off')">Apagado</button>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+
+
+
+
+    <script>
+        const categories = [
+	
+						{
+				title: 'Génesis',
+				questions: [
+				{ text: '¿Qué significa el nombre "Abraham"?', answer: 'Padre de multitudes (Génesis 17:5)' },
+				{ text: '¿A que edad se circuncidó Abraham?', answer: 'A los 99 años (Génesis 17:24)' },
+				{ text: '¿Qué significa el nombre "Jacob"?', answer: 'Suplantador o engañador (Génesis 25:26)' },
+				{ text: '¿Ismael fue circuncidado?', answer: 'Si, a los 13 años (Génesis 17:25)' },
+				{ text: '¿A que edad Abraham fue papá?', answer: 'A los 86 años Génesis 16:16)' },
+				{ text: '¿Qué sueño tuvo Faraón que José interpretó como siete años de abundancia seguidos por siete años de hambre?', answer: 'Siete vacas gordas que fueron devoradas por siete vacas flacas, y siete espigas llenas y buenas que fueron devoradas por siete espigas secas y delgadas (Génesis 41:1-7)' },
+				{ text: '¿Cómo se llamaban los dos hijos de Judá y Tamar?', answer: 'Fares y Zara (Génesis 38:29-30)' },
+				{ text: '¿Cuál fue el nombre que Jacob dio al lugar donde luchó con el ángel?', answer: 'Peniel, porque vio a Dios cara a cara (Génesis 32:30)' },
+				{ text: '¿Qué descendiente de Caín fue el primer herrero y fabricante de instrumentos de bronce y hierro?', answer: 'Tubal-Caín (Génesis 4:22)' },
+				{ text: '¿Cuál fue la primera ciudad que fundó Nimrod, que llegó a ser un poderoso cazador delante de Jehová?', answer: 'Babel, Erec, Acad y Calne, en la tierra de Sinar (Génesis 10:8-10)' },
+				{ text: '¿Qué hizo Caín después de matar a su hermano Abel?', answer: 'Caín se fue de la presencia de Jehová y habitó en la tierra de Nod, al oriente de Edén (Génesis 4:16)' },
+				{ text: '¿Cómo se llamaban los hijos de Noé y cuál de ellos fue maldito por él?', answer: 'Sem, Cam y Jafet; Cam fue maldito por Noé debido a su falta de respeto (Génesis 9:18-27)' },
+				{ text: '¿Cuál fue la señal del pacto que Dios hizo con Noé después del diluvio?', answer: 'El arcoíris (Génesis 9:13-17)' },
+				{ text: '¿Qué descendiente de Set fue el hombre más longevo de la Biblia?', answer: 'Matusalén, quien vivió 969 años (Génesis 5:27)' },
+				{ text: '¿Cuántos años vivió Adán?', answer: '930 años (Génesis 5:5)' }
+
+				]},
+		
+				{
+    
+                title: 'Éxodo',
+                questions: [
+                   { text: '¿Qué significa el nombre "Moisés"?', answer: 'Sacado de las aguas (Éxodo 2:10)' },
+                    { text: '¿Cuántos años vivió Moisés?', answer: '120 años (Deuteronomio 34:7)' },
+                    { text: '¿Qué hizo Moisés con las aguas del Mar Rojo?', answer: 'Las dividió para que los israelitas cruzaran en seco (Éxodo 14:21-22)' },
+                    { text: '¿Cómo se llamaban las parteras hebreas que tenian la orden de matar si nacia niño varón en el parto de las hebreas?', answer: 'Sifra y Fúa (Éxodo 1:15)' },
+                    { text: '¿Quién construyó el becerro de oro mientras Moisés estaba en el Monte Sinaí?', answer: 'Aarón, el hermano de Moisés (Éxodo 32:1-4)' },
+                    { text: '¿Cuál fue la última plaga que Dios envió sobre Egipto antes de que el faraón dejara salir a los israelitas?', answer: 'La muerte de todos los primogénitos, humanos y animales (Éxodo 12:29)' },
+                    { text: '¿Cuál era el nombre de la hermana de Moisés y Aarón que profetizó con pandero en mano?', answer: 'Miriam (Éxodo 15:20)' },
+                    { text: '¿Qué objeto utilizó Moisés para golpear la roca y hacer que saliera agua?', answer: 'Su vara o cayado (Éxodo 17:5-6)' },
+                    { text: '¿Qué nombre recibió el lugar donde Moisés vio la zarza ardiente?', answer: 'Monte Horeb, también conocido como el monte de Dios (Éxodo 3:1-2)' },
+                    { text: '¿Con qué se marcó las casas de los israelitas en la noche de la Pascua?', answer: 'Con la sangre de un cordero sin defecto, colocada en los postes y el dintel de las puertas (Éxodo 12:7)' },
+                    { text: '¿Quién le dijo a Moisés: Alarido de pelea hay en el campamento?', answer: 'Josué (Génesis 32:17)' },
+                    { text: '¿Cuál fue el primer milagro que Moisés realizó delante del faraón?', answer: 'Convertir su vara en una serpiente (Éxodo 7:10-12)' },
+                    { text: '¿Cuál era el nombre del altar que Moisés construyó para conmemorar la victoria sobre Amalec?', answer: 'Yahweh-Nissi, que significa "El Señor es mi bandera" (Éxodo 17:15)' },
+                    { text: '¿Cuántos días tardó Moisés en subir al monte Sinaí y recibir las tablas de la ley?', answer: '40 días y 40 noches (Éxodo 24:18)' },
+                    { text: '¿Qué objeto hizo Moisés para guardar las tablas de la ley?', answer: 'Un arca de madera de acacia cubierta de oro puro (Éxodo 25:10-11)' },
+                    { text: '¿Qué animal fue sacrificado para sellar la alianza entre Dios y los hijos de Israel en el monte Sinaí?', answer: 'Becerros jóvenes (Éxodo 24:5)' },
+                    { text: '¿Quién era el sumo sacerdote durante la construcción del tabernáculo?', answer: 'Aarón, el hermano de Moisés (Éxodo 28:1)' },
+                    { text: '¿De que forma la presencia de Dios se manifestaba sobre el tabernáculo?', answer: 'Por medio de una nube de gloria (Éxodo 40:34)' },
+                    { text: '¿Qué persona tenía un rostro resplandeciente después de hablar con Dios en el monte Sinaí?', answer: 'Moisés (Éxodo 34:29-30)' },
+                    { text: '¿Cuál era el nombre de la esposa de Moisés y de qué tribu era?', answer: 'Séfora, hija de Reuel (Éxodo 2:18-21)' }
+
+                ]
+            },
+            {
+                title: 'Levítico',
+                questions: [
+              { text: '¿Cuántos capítulos tiene el libro de Levítico?', answer: '27 capítulos' },
+              { text: '¿La ofrenda por sacrificios de paz, podia ser de ganado vacuno macho o hembra?', answer: 'Si (Levítico 3:1)' },
+              { text: '¿Cuántos días debía esperar una mujer después de dar a luz a un niño para ser considerada pura?', answer: '40 días (Levítico 12:1-8)' },
+              { text: '¿Qué animal debía ser ofrecido como sacrificio por el pecado de un líder del pueblo?', answer: 'Un macho cabrío sin defecto (Levítico 4:22-26)' },
+              { text: '¿Cuál era la ofrenda principal en la ceremonia de consagración de Aarón y sus hijos?', answer: 'Un becerro como sacrificio por el pecado (Levítico 8:14-17)' },
+              { text: '¿Qué debía hacer un leproso según las leyes de purificación en Levítico?', answer: 'Presentarse ante el sacerdote para ser examinado (Levítico 14:2-32)' },
+              { text: '¿Qué animal debía ser ofrecido como sacrificio por la culpa de un israelita?', answer: 'Una oveja sin defecto (Levítico 5:14-19)' },
+              { text: '¿Qué parte del sacrificio de paz era quemada en el altar?', answer: 'La grasa de la cola (Levítico 3:9-11)' },
+              { text: '¿Cuánto tiempo debía esperar una persona antes de comer del fruto de un árbol recién plantado?', answer: '3 años (Levítico 19:23-25)' },
+              { text: '¿Qué animales no debían ser sacrificados como ofrenda a Yahvéh?', answer: 'Animales ciegos, cojos, mutilados o con llagas (Levítico 22:17-25)' },
+              { text: '¿Qué día del mes se celebraba la fiesta de los Tabernáculos?', answer: 'Del día 15 al 22 (Levítico 23:33-43)' },
+              { text: '¿Qué parte de los sacrificios de la ley de Moisés era quemada fuera del campamento?', answer: 'La piel (Levítico 4:11-12)' },
+              { text: '¿Qué debía hacer una persona que pecaba y se arrepentía según Levítico?', answer: 'Ofrecer un sacrificio por el pecado (Levítico 4:27-35)' },
+              { text: '¿Qué debían hacer los israelitas si cometían un error al hacer un voto a Yahvéh?', answer: 'Ofrecer un cordero como sacrificio por el pecado (Levítico 5:4-6)' },
+              { text: '¿De que dos ciudades o tierras se habla de no hacer como se hace en esas ciudades, es decir no seguir sus costumbres?', answer: 'Egito y Canaán(Levítico 18:3)' },
+              { text: '¿Qué animal era ofrecido como sacrificio por la culpa de un sacerdote?', answer: 'Un carnero sin defecto (Levítico 5:14-19)' },
+              { text: '¿Qué parte de los sacrificios era quemada en el altar según Levítico?', answer: 'La grasa (Levítico 3:1-17)' },
+              { text: '¿Qué parte del sacrificio de paz era comida por el sacerdote y su familia?', answer: 'El pecho (Levítico 7:28-34)' }
+
+
+                ]
+            },
+            {
+                title: 'Números',
+                questions: [
+                   
+              { text: '¿Cuál fue la primera tribu que Moisés mencionó al enumerar a los hijos de Israel?', answer: 'Rubén. (Números 1:5)' },
+              { text: '¿Cuál era la edad mínima para ir a la guerra?', answer: '20 años(Números 1:45)' },
+              { text: '¿Cuál fue la única  tribu que no fue contada el censo para ir a la guerra?', answer: ' La tribu de Levi(Números 1:47)' },
+              { text: '¿Cuantos israelitas fueron contandos en el censo para ir a la guerra?', answer: '603.550 (Números 1:46)' },
+              { text: '¿Cómo se llamaron los hijos de Aaron?', answer: 'Nadab el primogénito, Abiú, Eleazar e Itamar.(Números 3:2)' },
+              { text: '¿Cuál era el rango de edad en que se elegian a los levitas para el servicio del santuario?', answer: 'De 30 a 50 años (Números 4:30)' },
+              { text: '¿Cuántos años tenía Moisés cuando el Señor lo envió a explorar la tierra de Canaán?', answer: 'Ochenta años.(Números 13:1-2)' },
+              { text: '¿Cual era la bendición sacerdotal, que debian decir los sacerdotes a los israelitas?', answer: 'Jehová te bendiga, y te guarde, Jehová haga resplandecer su rostro sobre ti, y tenga de ti misericordia;Jehová alce sobre ti su rostro, y ponga en ti paz.(Números 6:24-26)' },
+              { text: '¿Por qué a los  hijos de Coat no se les dió carros y bueyes como a los demás levitas?', answer: 'Porque ellos cargaban todo en sus hombros(Números 7:9)' },
+              { text: '¿Que pasaba con los Levitas de 50 años en adelante?', answer: 'Terminaba su ministerio, solo podian hacer la guardia del tabernáculo pero no servir (Números 8:25-26)' },
+              { text: '¿Cuando tocaban la trompeta de plata una sola vez, que significaba?', answer: 'Era un llamado para que se congregarán solo los príncipes, los jefes de los millares de Israel (Números 10:4)' },
+              { text: '¿A que se compara el sabor del maná que caia del cielo?', answer: 'Sabor a aceite nuevo (Números 11:8)' },
+              { text: '¿Cómo Dios liberó la carga de Moisés como líder del pueblo?', answer: 'Designó a 70 ancianos para que le apoyaran(Números 11:16-17)' },
+              { text: '¿Que elemento de la naturaleza uso Dios para traer codornices para que los hijos de israel se saciaran comiendo carne?', answer: 'Un viento de Jehóva(Números 11:31)' },
+              { text: '¿Que dos castigos recibió Maria (Miriam)por hablar mal de su hermano Moisés?', answer: 'Dios le puso lepra y la expulsaron 7 días fuera del campamento (Números 12:9,15)' },
+              { text: '¿Que queria hacer la multitud después de Caleb y Josué la exhortaron para pelear después de la misión de los espias?', answer: 'Querian apedrearlos (Números 14:10)' },
+              { text: '¿Cómo terminaron los 10 espías que dieron el informe negativo y murmuraron contra Dios?', answer: 'Dios los mató con una plaga (Números 14:37)' },
+              { text: '¿Cuántos levitas fueron contados en el censo de Moisés y Aarón en el desierto de Sinaí?', answer: 'Veintidós mil levitas.(Números 3:39)' },
+              { text: '¿Después de que ritual murió Aaron?', answer: 'Moisés desnudó a Aarón de sus vestiduras, y se las vistió a Eleazar su hijo (Números 20:28)' },
+              { text: '¿En la guerra de venganza de Israel contra madian cuantos hombres fueron por cada tribu?', answer: 'Mil por cada tribu (Números 31:4)' }
+
+                ]
+            },
+            {
+                title: 'Deuteronomio',
+                questions: [
+                   { text: '¿Cuántos días duró el duelo por Moisés?', answer: 'Treinta días.(Deuteronomio 34:8)' },
+                  { text: '¿Quién sucedió a Moisés?', answer: 'Josué (Deuteronomio 34:9)' },
+				   { text: '¿Qué sacarian de las montañas en la tierra prometida?', answer: 'Cobre(Deuteronomio 8:9)' },
+                  { text: '¿Porqué Dios les dijo a los israelitas que tenian que amar a los extranjeros?', answer: 'Porque ellos también fueron extranjeros en la tierra de Egipto.(Deuteronomio 10:19)' },
+                  { text: '¿Qué monte subió Moisés antes de morir?', answer: 'El monte Nebo. (Deuteronomio 34:1)' },
+                  { text: '¿Cuántos años tenía Moisés cuando habló a Israel por última vez?', answer: 'Ciento veinte años.(Deuteronomio 34:7)' },
+                  { text: '¿Qué ciudad fortificada estaba en manos de los gigantes antes de que los hijos de Amón la arrebataran?', answer: 'Jabes de Galaad.(Deuteronomio 3:10)' },
+                  { text: '¿De que tamaño era la familia de Jacob cuando entró a Egipto?', answer: '70 personas.(Deuteronomio 2:36)' },
+                  { text: '¿Cuantos días duraba la fiesta de los tabernáculos?', answer: 'Siete días. (Deuteronomio 16:13)' },
+                  { text: '¿Qué mes sacó Dios a Israel de Egipto?', answer: 'En el mes de abib. (Deuteronomio 16:1)' },
+                  { text: '¿Qué hace el soborno con los sabios y los justos?', answer: ' El soborno ciega los ojos de los sabios, y pervierte las palabras de los justos. (Deuteronomio 16:19)' },
+                  { text: '¿Qué tierra fue prometida a los descendientes de Lot?', answer: 'La tierra de Moab. (Deuteronomio 2:9)' },
+                  { text: '¿A quien se le podia cobrar interés en prestamos y a quién no', answer: 'Al extranjero se le podia cobrar, más no al hermano. (Deuteronomio 23:19)' },
+                  { text: '¿Qué ley había sobre comer las uvas en la viña del prójimo??', answer: 'Podias comer hasta saciarte, pero no meter en tu cesta para llevar. (Deuteronomio 23:24)' },
+                  { text: '¿Qué acción hace Jehová que hacen también los padres con sus hijos?', answer: 'Castigar (Deuteronomio 5:8)' },
+                  { text: '¿Qué dos metales se encontraban en la tierra prometida?', answer: 'Hierro y cobre (Deuteronomio 8:9)' },
+                  { text: '¿Cual era la ley si encontrabas una nido de ave con la mamá y sus pollos o huevos?' , answer: 'Se podia tomar a los pollos o huevos pero se tenia que dejar libre a la madre.(Deuteronomio 22:6-7)' },
+                  { text: '¿Qué tipo de tela no podian combinarse para vestir?', answer: 'Lana y Lino (Deuteronomio 22:11)' },
+                  { text: '¿Un padre podria morir en lugar de su hijo, o una hijo en lugar de su padre?', answer: 'No, cada uno morirá por su pecado.(Deuteronomio 24:16)' }
+
+                ]
+            }
+          
+        ];
+
+     let currentCategoryIndex = 0;
+let currentQuestionIndex = 0;
+let countdownTimeout;
+let timerDuration = 5;
+let countdownInterval;
+
+function showTimerSelector() {
+    document.getElementById('timerSelector').classList.toggle('hidden');
+}
+
+function setTimer(duration) {
+    timerDuration = duration === 'off' ? 'off' : parseInt(duration);
+    document.getElementById('timerSelector').classList.add('hidden');
+}
+
+function startCountdown() {
+    if (timerDuration > 0) {
+        let remainingTime = timerDuration;
+        document.getElementById('countdown').classList.remove('hidden');
+        document.getElementById('countdown').textContent = remainingTime;
+        countdownInterval = setInterval(() => {
+            remainingTime--;
+            document.getElementById('countdown').textContent = remainingTime;
+            if (remainingTime <= 0) {
+                clearInterval(countdownInterval);
+                displayAnswer();
+                playAlarm();
+            }
+        }, 1000);
+    }
+}
+
+function displayAnswer() {
+    const category = categories[currentCategoryIndex];
+    const answer = category.questions[currentQuestionIndex].answer;
+    document.getElementById('answerContent').textContent = answer;
+}
+
+function stopCountdown() {
+    clearInterval(countdownInterval);
+    document.getElementById('countdown').classList.add('hidden');
+    displayAnswer(); // Muestra la respuesta al detener el temporizador
+}
+
+function resetCountdown() {
+    stopCountdown();
+    startCountdown();
+}
+
+function selectCategory(index) {
+    currentCategoryIndex = index;
+    currentQuestionIndex = 0;
+    const category = categories[index];
+    document.getElementById('categoryTitle').textContent = category.title;
+    document.getElementById('questionsContainer').classList.remove('hidden');
+    document.getElementById('categoriesContainer').classList.add('hidden');
+    displayQuestion();
+}
+
+function displayQuestion() {
+    const category = categories[currentCategoryIndex];
+    const question = category.questions[currentQuestionIndex];
+    document.getElementById('questionText').textContent = question.text;
+    document.getElementById('answerContent').textContent = '';
+    document.getElementById('questionCounter').textContent = `Pregunta ${currentQuestionIndex + 1} de ${category.questions.length}`;
+    checkPrevNextButtons();
+    if (timerDuration === 'off') {
+        displayAnswer(); // Muestra la respuesta de inmediato si el temporizador está apagado
+    } else {
+        startCountdown(); // Inicia el temporizador al mostrar una nueva pregunta
+    }
+}
+
+function nextQuestion() {
+    if (currentQuestionIndex < categories[currentCategoryIndex].questions.length - 1) {
+        stopCountdown(); // Detener el temporizador actual antes de avanzar a la siguiente pregunta
+        currentQuestionIndex++;
+        displayQuestion();
+    }
+}
+
+function prevQuestion() {
+    if (currentQuestionIndex > 0) {
+        stopCountdown(); // Detener el temporizador actual antes de retroceder a la pregunta anterior
+        currentQuestionIndex--;
+        displayQuestion();
+    }
+}
+
+
+function checkPrevNextButtons() {
+    const prevBtn = document.querySelector('.nav-btn:first-of-type');
+    const nextBtn = document.querySelector('.nav-btn:last-of-type');
+    prevBtn.style.display = currentQuestionIndex === 0 ? 'none' : 'inline-block';
+    nextBtn.style.display = currentQuestionIndex === categories[currentCategoryIndex].questions.length - 1 ? 'none' : 'inline-block';
+}
+
+function shareQuestion() {
+    const question = categories[currentCategoryIndex].questions[currentQuestionIndex].text;
+    const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(question)}`;
+    window.open(whatsappUrl, '_blank');
+}
+
+function shareApp() {
+    const appUrl = 'https://example.com'; // Reemplaza con la URL de tu aplicación
+    const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(appUrl)}`;
+    window.open(whatsappUrl, '_blank');
+}
+
+function goBack() {
+    document.getElementById('questionsContainer').classList.add('hidden');
+    document.getElementById('categoriesContainer').classList.remove('hidden');
+}
+
+// Función para abrir la ventana modal
+function openTimerModal() {
+    document.getElementById('timerModal').style.display = 'block';
+}
+
+// Función para cerrar la ventana modal
+function closeTimerModal() {
+    document.getElementById('timerModal').style.display = 'none';
+}
+
+// Función para establecer el retardo seleccionado
+function setDelay(delay) {
+    timerDuration = delay === 'off' ? 'off' : parseInt(delay);
+    console.log('Retardo seleccionado:', timerDuration);
+    closeTimerModal(); // Cierra la ventana modal después de seleccionar el retardo
+}
+
+function playAlarm() {
+    const alarmAudio = document.getElementById('alarmAudio');
+    alarmAudio.play();
+}
+
+    </script>
+</body>
+</html>
