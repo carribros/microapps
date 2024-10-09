@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Las 4 del Día</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 2px; /* Reduce el margen inferior de las imágenes */
+    }
+    .button {
+      
+    background-color: #25D366;
+    border: none;
+    color: white;
+    padding: 10px 15px; /* Reducir el padding horizontal */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 2px; /* Reduce el margen de los botones */
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+
+    }
+    #mensajeDescarga {
+        display: none;
+        margin-top: 20px;
+        color: green;
+        font-weight: bold;
+    }
+    #fechaActual {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+    .image-container {
+        margin-bottom: 20px; /* Reduce el margen inferior de los contenedores de imágenes */
+    }
+    .final-message {
+        margin-top: 20px;
+        font-size: 16px;
+        color: #555;
+    }
+	 h1 {
+        margin-bottom: 2px;
+		font-size:28px;
+		margin-top:5px;
+    }
+	.modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+			
+        }
+        .modal-content {
+			background-color: #fefefe;
+			margin: 160px auto; /* Cambia este valor para ajustar la posición vertical */
+			padding: 20px;
+			border: 1px solid #888;
+			width: 80%;
+			max-width: 400px;
+			text-align: center;
+			position: relative;
+			border-radius: 10px; /* Agrega bordes redondeados */
+}
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+		
+		.whatsapp-icon {
+		
+		bottom: 20px;
+		left: 50%;
+		margin-top:20px;
+		font-size: 30px;
+		color: green;
+		z-index: 9999;
+		text-decoration: none;
+		display: block;
+  
+	}
+
+		
+
+</style>
+</head>
+<body>
+   
+    <div id="fechaActual"></div>
+    <p class="misubtitulo">Descarga y comparte hermosas fotos de cumpleaños con tus amigos o familiares cada día con la fecha de su cumpleaños</p>
+    <div id="imagenesDelDia"></div>
+	
+			  
+		<div id="finalMessage" class="final-message">Vuelve mañana para descubrir nuestras hermosas fotos del día y puedas destacarte con mensajes lindos y originales de cumpleaños.</div>
+		<a href="#" onclick="compartirApp()" class="whatsapp-icon">
+			<i class="fab fa-whatsapp"></i>
+		</a>
+
+			
+   <!-- Modal de alerta -->
+    <div id="alertModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal()">&times;</span>
+            <p>Imagen descargada satisfactoriamente, la puedes compartir desde tu galería.</p>
+        </div>
+    </div>
+    <script>
+const imagenesPorDia = {
+    '2024-08-05': [
+        'https://misitio.com/001.png',
+        'https://misitio.com/002.png',
+        'https://misitio.com/003.png',
+    ],
+    '2024-08-06': [
+        'https://misitio.com/004.png',
+        'https://misitio.com/005.png',
+        'https://misitio.com/006.png',
+    ],
+};
+
+
+       function mostrarFechaActual() {
+			const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+			const fecha = new Date();
+			const idioma = navigator.language || navigator.userLanguage;
+			let fechaFormateada = fecha.toLocaleDateString(idioma, opciones);
+			fechaFormateada = fechaFormateada.charAt(0).toUpperCase() + fechaFormateada.slice(1);
+			document.getElementById('fechaActual').innerText = fechaFormateada;
+		}
+
+		function iniciarDescarga(index) {
+			// Obtener la URL de la imagen descargada
+			const imagenDescargada = document.getElementById(`downloadBtn${index}`).href;
+
+			// Mostrar el modal
+			const modal = document.getElementById('alertModal');
+			modal.style.display = 'block';
+
+			// Iniciar la descarga
+			const link = document.createElement('a');
+			link.href = imagenDescargada;
+			link.download = `imagen${index + 1}.jpg`;
+			document.body.appendChild(link);
+			link.click();
+
+			// Ocultar el modal después de un tiempo
+			setTimeout(() => {
+				modal.style.display = 'none';
+			}, 3000); // Oculta el modal después de 3 segundos (3000 milisegundos)
+		}
+
+		function cargarImagenesDelDia() {
+			const fecha = new Date();
+			const fechaISO = fecha.toLocaleDateString('en-CA'); // Cambia la fecha a formato YYYY-MM-DD local
+			const imagenes = imagenesPorDia[fechaISO];
+			const contenedor = document.getElementById('imagenesDelDia');
+
+			if (imagenes) {
+				imagenes.forEach((imagenSrc, index) => {
+					const div = document.createElement('div');
+					div.className = 'image-container';
+					div.innerHTML = `
+						<img src="${imagenSrc}" alt="Imagen del día ${index + 1}">
+						<br>
+						<a id="downloadBtn${index}" href="${imagenSrc}" class="button" download="imagen${index + 1}.jpg" data-index="${index}"><i class="fas fa-download"></i></a>
+					`;
+					contenedor.appendChild(div);
+
+					const downloadBtn = document.getElementById(`downloadBtn${index}`);
+					downloadBtn.addEventListener('click', (event) => {
+						event.preventDefault(); // Evitar que se abra la página de descarga
+						const index = event.target.dataset.index; // Obtener el índice de la imagen
+						iniciarDescarga(index); // Iniciar la descarga de la imagen
+					});
+				});
+			} else {
+				contenedor.innerHTML = '<p>No hay imágenes programadas para hoy.</p>';
+			}
+		}
+
+		function mostrarModal(index) {
+			const modal = document.getElementById('alertModal');
+			modal.style.display = 'block';
+			const closeModal = document.querySelector('.close');
+			closeModal.onclick = () => {
+				cerrarModal();
+			};
+			window.onclick = (event) => {
+				if (event.target === modal) {
+					cerrarModal();
+				}
+			};
+		}
+
+		function cerrarModal() {
+			const modal = document.getElementById('alertModal');
+			modal.style.display = 'none';
+		}
+
+
+function compartirApp() {
+    const url = encodeURIComponent(window.location.href);
+    const mensaje = `\n\nTe recomiendo esta increíble aplicación para que descubras  04 imágenes diferentes de cumpleaños cada día .Descárgala aquí:👇👇👇\n\nhttps://play.google.com/store/apps/details?id=com.mipaquete.cumple`;
+    window.open(`https://api.whatsapp.com/send?text=${mensaje}`, '_blank');
+}
+
+
+
+		mostrarFechaActual();
+		cargarImagenesDelDia();
+    </script>
+</body>
+</html>
