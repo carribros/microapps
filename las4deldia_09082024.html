@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Las 4 del Día</title>
+<title>Las 9 del Día</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <style>
     body {
@@ -132,18 +132,450 @@
         </div>
     </div>
     <script>
-const imagenesPorDia = {
+	
+	const imagenesPorDia = {
     '2024-08-05': [
-        'https://misitio.com/001.png',
-        'https://misitio.com/002.png',
-        'https://misitio.com/003.png',
+        'https://calcutrader.com/quepadre/30deldia/quince/001.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/002.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/003.jpg',
     ],
     '2024-08-06': [
-        'https://misitio.com/004.png',
-        'https://misitio.com/005.png',
-        'https://misitio.com/006.png',
+        'https://calcutrader.com/quepadre/30deldia/quince/004.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/005.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/006.jpg',
+    ],
+    '2024-08-07': [
+        'https://calcutrader.com/quepadre/30deldia/quince/007.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/008.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/009.jpg',
+    ],
+    '2024-08-08': [
+        'https://calcutrader.com/quepadre/30deldia/quince/010.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/011.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/012.jpg',
+    ],
+    '2024-08-09': [
+        'https://calcutrader.com/quepadre/30deldia/quince/013.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/014.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/015.jpg',
+    ],
+    '2024-08-10': [
+        'https://calcutrader.com/quepadre/30deldia/quince/016.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/017.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/018.jpg',
+    ],
+    '2024-08-11': [
+        'https://calcutrader.com/quepadre/30deldia/quince/019.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/020.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/021.jpg',
+    ],
+    '2024-08-12': [
+        'https://calcutrader.com/quepadre/30deldia/quince/022.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/023.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/024.jpg',
+    ],
+    '2024-08-13': [
+        'https://calcutrader.com/quepadre/30deldia/quince/025.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/026.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/027.jpg',
+    ],
+    '2024-08-14': [
+        'https://calcutrader.com/quepadre/30deldia/quince/028.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/029.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/030.jpg',
+    ],
+    '2024-08-15': [
+        'https://calcutrader.com/quepadre/30deldia/quince/031.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/032.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/033.jpg',
+    ],
+    '2024-08-16': [
+        'https://calcutrader.com/quepadre/30deldia/quince/034.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/035.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/036.jpg',
+    ],
+    '2024-08-17': [
+        'https://calcutrader.com/quepadre/30deldia/quince/037.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/038.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/039.jpg',
+    ],
+    '2024-08-18': [
+        'https://calcutrader.com/quepadre/30deldia/quince/040.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/041.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/042.jpg',
+    ],
+    '2024-08-19': [
+        'https://calcutrader.com/quepadre/30deldia/quince/043.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/044.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/045.jpg',
+    ],
+    '2024-08-20': [
+        'https://calcutrader.com/quepadre/30deldia/quince/046.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/047.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/048.jpg',
+    ],
+    '2024-08-21': [
+        'https://calcutrader.com/quepadre/30deldia/quince/049.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/050.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/051.jpg',
+    ],
+    '2024-08-22': [
+        'https://calcutrader.com/quepadre/30deldia/quince/052.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/053.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/054.jpg',
+    ],
+    '2024-08-23': [
+        'https://calcutrader.com/quepadre/30deldia/quince/055.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/056.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/057.jpg',
+    ],
+    '2024-08-24': [
+        'https://calcutrader.com/quepadre/30deldia/quince/058.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/059.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/060.jpg',
+    ],
+    '2024-08-25': [
+        'https://calcutrader.com/quepadre/30deldia/quince/061.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/062.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/063.jpg',
+    ],
+    '2024-08-26': [
+        'https://calcutrader.com/quepadre/30deldia/quince/064.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/065.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/066.jpg',
+    ],
+    '2024-08-27': [
+        'https://calcutrader.com/quepadre/30deldia/quince/067.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/068.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/069.jpg',
+    ],
+    '2024-08-28': [
+        'https://calcutrader.com/quepadre/30deldia/quince/070.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/071.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/072.jpg',
+    ],
+    '2024-08-29': [
+        'https://calcutrader.com/quepadre/30deldia/quince/073.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/074.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/075.jpg',
+    ],
+    '2024-08-30': [
+        'https://calcutrader.com/quepadre/30deldia/quince/076.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/077.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/078.jpg',
+    ],
+    '2024-08-31': [
+        'https://calcutrader.com/quepadre/30deldia/quince/079.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/080.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/081.jpg',
+    ],
+    '2024-09-01': [
+        'https://calcutrader.com/quepadre/30deldia/quince/082.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/083.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/084.jpg',
+    ],
+    '2024-09-02': [
+        'https://calcutrader.com/quepadre/30deldia/quince/085.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/086.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/087.jpg',
+    ],
+    '2024-09-03': [
+        'https://calcutrader.com/quepadre/30deldia/quince/088.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/089.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/090.jpg',
+    ],
+    '2024-09-04': [
+        'https://calcutrader.com/quepadre/30deldia/quince/091.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/092.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/093.jpg',
+    ],
+    '2024-09-05': [
+        'https://calcutrader.com/quepadre/30deldia/quince/094.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/095.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/096.jpg',
+    ],
+    '2024-09-06': [
+        'https://calcutrader.com/quepadre/30deldia/quince/097.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/098.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/099.jpg',
+    ],
+    '2024-09-07': [
+        'https://calcutrader.com/quepadre/30deldia/quince/100.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/101.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/102.jpg',
+    ],
+    '2024-09-08': [
+        'https://calcutrader.com/quepadre/30deldia/quince/103.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/104.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/105.jpg',
+    ],
+    '2024-09-09': [
+        'https://calcutrader.com/quepadre/30deldia/quince/106.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/107.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/108.jpg',
+    ],
+    '2024-09-10': [
+        'https://calcutrader.com/quepadre/30deldia/quince/109.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/110.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/111.jpg',
+    ],
+    '2024-09-11': [
+        'https://calcutrader.com/quepadre/30deldia/quince/112.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/113.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/114.jpg',
+    ],
+    '2024-09-12': [
+        'https://calcutrader.com/quepadre/30deldia/quince/115.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/116.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/117.jpg',
+    ],
+    '2024-09-13': [
+        'https://calcutrader.com/quepadre/30deldia/quince/118.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/119.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/120.jpg',
+    ],
+    '2024-09-14': [
+        'https://calcutrader.com/quepadre/30deldia/quince/121.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/122.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/123.jpg',
+    ],
+    '2024-09-15': [
+        'https://calcutrader.com/quepadre/30deldia/quince/124.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/125.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/126.jpg',
+    ],
+    '2024-09-16': [
+        'https://calcutrader.com/quepadre/30deldia/quince/127.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/128.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/129.jpg',
+    ],
+    '2024-09-17': [
+        'https://calcutrader.com/quepadre/30deldia/quince/130.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/131.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/132.jpg',
+    ],
+    '2024-09-18': [
+        'https://calcutrader.com/quepadre/30deldia/quince/133.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/134.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/135.jpg',
+    ],
+    '2024-09-19': [
+        'https://calcutrader.com/quepadre/30deldia/quince/136.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/137.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/138.jpg',
+    ],
+    '2024-09-20': [
+        'https://calcutrader.com/quepadre/30deldia/quince/139.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/140.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/141.jpg',
+    ],
+    '2024-09-21': [
+        'https://calcutrader.com/quepadre/30deldia/quince/142.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/143.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/144.jpg',
+    ],
+    '2024-09-22': [
+        'https://calcutrader.com/quepadre/30deldia/quince/145.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/146.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/147.jpg',
+    ],
+    '2024-09-23': [
+        'https://calcutrader.com/quepadre/30deldia/quince/148.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/149.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/150.jpg',
+    ],
+    '2024-09-24': [
+        'https://calcutrader.com/quepadre/30deldia/quince/151.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/152.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/153.jpg',
+    ],
+    '2024-09-25': [
+        'https://calcutrader.com/quepadre/30deldia/quince/154.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/155.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/156.jpg',
+    ],
+    '2024-09-26': [
+        'https://calcutrader.com/quepadre/30deldia/quince/157.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/158.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/159.jpg',
+    ],
+    '2024-09-27': [
+        'https://calcutrader.com/quepadre/30deldia/quince/160.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/161.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/162.jpg',
+    ],
+    '2024-09-28': [
+        'https://calcutrader.com/quepadre/30deldia/quince/163.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/164.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/165.jpg',
+    ],
+    '2024-09-29': [
+        'https://calcutrader.com/quepadre/30deldia/quince/166.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/167.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/168.jpg',
+    ],
+    '2024-09-30': [
+        'https://calcutrader.com/quepadre/30deldia/quince/169.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/170.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/171.jpg',
+    ],
+    '2024-10-01': [
+        'https://calcutrader.com/quepadre/30deldia/quince/172.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/173.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/174.jpg',
+    ],
+    '2024-10-02': [
+        'https://calcutrader.com/quepadre/30deldia/quince/175.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/176.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/177.jpg',
+    ],
+    '2024-10-03': [
+        'https://calcutrader.com/quepadre/30deldia/quince/178.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/179.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/180.jpg',
+    ],
+    '2024-10-04': [
+        'https://calcutrader.com/quepadre/30deldia/quince/181.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/182.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/183.jpg',
+    ],
+    '2024-10-05': [
+        'https://calcutrader.com/quepadre/30deldia/quince/184.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/185.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/186.jpg',
+    ],
+    '2024-10-06': [
+        'https://calcutrader.com/quepadre/30deldia/quince/187.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/188.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/189.jpg',
+    ],
+    '2024-10-07': [
+        'https://calcutrader.com/quepadre/30deldia/quince/190.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/191.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/192.jpg',
+    ],
+    '2024-10-08': [
+        'https://calcutrader.com/quepadre/30deldia/quince/193.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/194.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/195.jpg',
+    ],
+    '2024-10-09': [
+        'https://carribros.github.io/microapps/01.jpg',
+        'https://carribros.github.io/microapps/02.jpg',
+        'https://carribros.github.io/microapps/03.jpg',
+    ],
+    '2024-10-10': [
+        'https://calcutrader.com/quepadre/30deldia/quince/199.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/200.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/201.jpg',
+    ],
+    '2024-10-11': [
+        'https://calcutrader.com/quepadre/30deldia/quince/202.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/203.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/204.jpg',
+    ],
+    '2024-10-12': [
+        'https://calcutrader.com/quepadre/30deldia/quince/205.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/206.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/207.jpg',
+    ],
+    '2024-10-13': [
+        'https://calcutrader.com/quepadre/30deldia/quince/208.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/209.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/210.jpg',
+    ],
+    '2024-10-14': [
+        'https://calcutrader.com/quepadre/30deldia/quince/211.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/212.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/213.jpg',
+    ],
+    '2024-10-15': [
+        'https://calcutrader.com/quepadre/30deldia/quince/214.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/215.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/216.jpg',
+    ],
+    '2024-10-16': [
+        'https://calcutrader.com/quepadre/30deldia/quince/217.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/218.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/219.jpg',
+    ],
+    '2024-10-17': [
+        'https://calcutrader.com/quepadre/30deldia/quince/220.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/221.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/222.jpg',
+    ],
+    '2024-10-18': [
+        'https://calcutrader.com/quepadre/30deldia/quince/223.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/224.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/225.jpg',
+    ],
+    '2024-10-19': [
+        'https://calcutrader.com/quepadre/30deldia/quince/226.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/227.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/228.jpg',
+    ],
+    '2024-10-20': [
+        'https://calcutrader.com/quepadre/30deldia/quince/229.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/230.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/231.jpg',
+    ],
+    '2024-10-21': [
+        'https://calcutrader.com/quepadre/30deldia/quince/232.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/233.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/234.jpg',
+    ],
+    '2024-10-22': [
+        'https://calcutrader.com/quepadre/30deldia/quince/235.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/236.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/237.jpg',
+    ],
+    '2024-10-23': [
+        'https://calcutrader.com/quepadre/30deldia/quince/238.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/239.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/240.jpg',
+    ],
+    '2024-10-24': [
+        'https://calcutrader.com/quepadre/30deldia/quince/241.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/242.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/243.jpg',
+    ],
+    '2024-10-25': [
+        'https://calcutrader.com/quepadre/30deldia/quince/244.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/245.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/246.jpg',
+    ],
+    '2024-10-26': [
+        'https://calcutrader.com/quepadre/30deldia/quince/247.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/248.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/249.jpg',
+    ],
+    '2024-10-27': [
+        'https://calcutrader.com/quepadre/30deldia/quince/250.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/251.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/252.jpg',
+    ],
+    '2024-10-28': [
+        'https://calcutrader.com/quepadre/30deldia/quince/253.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/254.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/255.jpg',
+    ],
+    '2024-10-29': [
+        'https://calcutrader.com/quepadre/30deldia/quince/256.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/257.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/258.jpg',
+    ],
+    '2024-10-30': [
+        'https://calcutrader.com/quepadre/30deldia/quince/259.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/260.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/261.jpg',
+    ],
+    '2024-10-31': [
+        'https://calcutrader.com/quepadre/30deldia/quince/262.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/263.jpg',
+        'https://calcutrader.com/quepadre/30deldia/quince/264.jpg',
     ],
 };
+
 
 
        function mostrarFechaActual() {
@@ -227,7 +659,7 @@ const imagenesPorDia = {
 
 function compartirApp() {
     const url = encodeURIComponent(window.location.href);
-    const mensaje = `\n\nTe recomiendo esta increíble aplicación para que descubras  04 imágenes diferentes de cumpleaños cada día .Descárgala aquí:👇👇👇\n\nhttps://play.google.com/store/apps/details?id=com.mipaquete.cumple`;
+    const mensaje = `\n\nTe recomiendo esta increíble aplicación para que descubras  30 imágenes diferentes de cumpleaños cada día .Descárgala aquí:👇👇👇\n\nhttps://play.google.com/store/apps/details?id=com.tarjetitaspersonalizadas.tarjetitasquepadre`;
     window.open(`https://api.whatsapp.com/send?text=${mensaje}`, '_blank');
 }
 
