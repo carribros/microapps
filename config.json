@@ -20,5 +20,20 @@
         ]
       }
     ]
+  },
+  {
+    "title": "Calcu",
+    "drawable": "",
+    "submenu": "",
+    "iap": "false",
+    "tabs": [
+      {
+        "title": "Calcutrader",
+        "provider": "webview",
+        "arguments": [
+          "https://calcutrader.com/imagen_aleatoria_sencillaprogramada.html"
+        ]
+      }
+    ]
   }
 ]
