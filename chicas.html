@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Las 9 del Día</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 2px; /* Reduce el margen inferior de las imágenes */
+    }
+    .button {
+      
+    background-color: #25D366;
+    border: none;
+    color: white;
+    padding: 10px 15px; /* Reducir el padding horizontal */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 2px; /* Reduce el margen de los botones */
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+
+    }
+    #mensajeDescarga {
+        display: none;
+        margin-top: 20px;
+        color: green;
+        font-weight: bold;
+    }
+    #fechaActual {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+    .image-container {
+        margin-bottom: 20px; /* Reduce el margen inferior de los contenedores de imágenes */
+    }
+    .final-message {
+        margin-top: 20px;
+        font-size: 16px;
+        color: #555;
+    }
+	 h1 {
+        margin-bottom: 2px;
+		font-size:28px;
+		margin-top:5px;
+    }
+	.modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+			
+        }
+        .modal-content {
+			background-color: #fefefe;
+			margin: 160px auto; /* Cambia este valor para ajustar la posición vertical */
+			padding: 20px;
+			border: 1px solid #888;
+			width: 80%;
+			max-width: 400px;
+			text-align: center;
+			position: relative;
+			border-radius: 10px; /* Agrega bordes redondeados */
+}
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+		
+		.whatsapp-icon {
+		
+		bottom: 20px;
+		left: 50%;
+		margin-top:20px;
+		font-size: 30px;
+		color: green;
+		z-index: 9999;
+		text-decoration: none;
+		display: block;
+  
+	}
+
+		
+
+</style>
+</head>
+<body>
+   
+    <div id="fechaActual"></div>
+    <p class="misubtitulo">Descarga y comparte hermosas fotos de cumpleaños con tus amigos o familiares cada día con la fecha de su cumpleaños</p>
+    <div id="imagenesDelDia"></div>
+	
+			  
+		<div id="finalMessage" class="final-message">Vuelve mañana para descubrir nuestras hermosas fotos del día y puedas destacarte con mensajes lindos y originales de cumpleaños.</div>
+		<a href="#" onclick="compartirApp()" class="whatsapp-icon">
+			<i class="fab fa-whatsapp"></i>
+		</a>
+
+			
+   <!-- Modal de alerta -->
+    <div id="alertModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal()">&times;</span>
+            <p>Imagen descargada satisfactoriamente, la puedes compartir desde tu galería.</p>
+        </div>
+    </div>
+    <script>
+	
+	
+const imagenesPorDia = {
+    '2024-08-05': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/001.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/002.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/003.jpg',
+    ],
+    '2024-08-06': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/004.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/005.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/006.jpg',
+    ],
+    '2024-08-07': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/007.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/008.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/009.jpg',
+    ],
+    '2024-08-08': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/010.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/011.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/012.jpg',
+    ],
+    '2024-08-09': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/013.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/014.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/015.jpg',
+    ],
+    '2024-08-10': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/016.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/017.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/018.jpg',
+    ],
+    '2024-08-11': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/019.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/020.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/021.jpg',
+    ],
+    '2024-08-12': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/022.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/023.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/024.jpg',
+    ],
+    '2024-08-13': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/025.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/026.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/027.jpg',
+    ],
+    '2024-08-14': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/028.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/029.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/030.jpg',
+    ],
+    '2024-08-15': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/031.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/032.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/033.jpg',
+    ],
+    '2024-08-16': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/034.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/035.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/036.jpg',
+    ],
+    '2024-08-17': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/037.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/038.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/039.jpg',
+    ],
+    '2024-08-18': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/040.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/041.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/042.jpg',
+    ],
+    '2024-08-19': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/043.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/044.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/045.jpg',
+    ],
+    '2024-08-20': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/046.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/047.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/048.jpg',
+    ],
+    '2024-08-21': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/049.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/050.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/051.jpg',
+    ],
+    '2024-08-22': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/052.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/053.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/054.jpg',
+    ],
+    '2024-08-23': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/055.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/056.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/057.jpg',
+    ],
+    '2024-08-24': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/058.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/059.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/060.jpg',
+    ],
+    '2024-08-25': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/061.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/062.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/063.jpg',
+    ],
+    '2024-08-26': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/064.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/065.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/066.jpg',
+    ],
+    '2024-08-27': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/067.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/068.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/069.jpg',
+    ],
+    '2024-08-28': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/070.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/071.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/072.jpg',
+    ],
+    '2024-08-29': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/073.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/074.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/075.jpg',
+    ],
+    '2024-08-30': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/076.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/077.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/078.jpg',
+    ],
+    '2024-08-31': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/079.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/080.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/081.jpg',
+    ],
+    '2024-09-01': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/082.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/083.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/084.jpg',
+    ],
+    '2024-09-02': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/085.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/086.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/087.jpg',
+    ],
+    '2024-09-03': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/088.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/089.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/090.jpg',
+    ],
+    '2024-09-04': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/091.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/092.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/093.jpg',
+    ],
+    '2024-09-05': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/094.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/095.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/096.jpg',
+    ],
+    '2024-09-06': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/097.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/098.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/099.jpg',
+    ],
+    '2024-09-07': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/100.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/101.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/102.jpg',
+    ],
+    '2024-09-08': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/103.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/104.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/105.jpg',
+    ],
+    '2024-09-09': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/106.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/107.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/108.jpg',
+    ],
+    '2024-09-10': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/109.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/110.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/111.jpg',
+    ],
+    '2024-09-11': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/112.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/113.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/114.jpg',
+    ],
+    '2024-09-12': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/115.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/116.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/117.jpg',
+    ],
+    '2024-09-13': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/118.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/119.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/120.jpg',
+    ],
+    '2024-09-14': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/121.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/122.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/123.jpg',
+    ],
+    '2024-09-15': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/124.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/125.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/126.jpg',
+    ],
+    '2024-09-16': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/127.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/128.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/129.jpg',
+    ],
+    '2024-09-17': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/130.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/131.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/132.jpg',
+    ],
+    '2024-09-18': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/133.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/134.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/135.jpg',
+    ],
+    '2024-09-19': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/136.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/137.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/138.jpg',
+    ],
+    '2024-09-20': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/139.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/140.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/141.jpg',
+    ],
+    '2024-09-21': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/142.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/143.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/144.jpg',
+    ],
+    '2024-09-22': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/145.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/146.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/147.jpg',
+    ],
+    '2024-09-23': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/148.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/149.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/150.jpg',
+    ],
+    '2024-09-24': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/151.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/152.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/153.jpg',
+    ],
+    '2024-09-25': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/154.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/155.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/156.jpg',
+    ],
+    '2024-09-26': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/157.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/158.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/159.jpg',
+    ],
+    '2024-09-27': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/160.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/161.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/162.jpg',
+    ],
+    '2024-09-28': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/163.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/164.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/165.jpg',
+    ],
+    '2024-09-29': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/166.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/167.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/168.jpg',
+    ],
+    '2024-09-30': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/169.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/170.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/171.jpg',
+    ],
+    '2024-10-01': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/172.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/173.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/174.jpg',
+    ],
+    '2024-10-02': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/175.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/176.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/177.jpg',
+    ],
+    '2024-10-03': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/178.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/179.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/180.jpg',
+    ],
+    '2024-10-04': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/181.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/182.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/183.jpg',
+    ],
+    '2024-10-05': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/184.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/185.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/186.jpg',
+    ],
+    '2024-10-06': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/187.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/188.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/189.jpg',
+    ],
+    '2024-10-07': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/190.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/191.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/192.jpg',
+    ],
+    '2024-10-08': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/193.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/194.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/195.jpg',
+    ],
+    '2024-10-09': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/196.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/197.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/198.jpg',
+    ],
+    '2024-10-10': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/199.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/200.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/201.jpg',
+    ],
+    '2024-10-11': [
+        'https://carribros.github.io/microapps/202.jpg',
+        'https://carribros.github.io/microapps/203.jpg',
+        'https://carribros.github.io/microapps/204.jpg',
+    ],
+    '2024-10-12': [
+        'https://carribros.github.io/microapps/205.jpg',
+        'https://carribros.github.io/microapps/206.jpg',
+        'https://carribros.github.io/microapps/207.jpg',
+    ],
+    '2024-10-13': [
+        'https://calcutrader.com/quepadre/30deldia/achicas/208.jpg',
+        'https://calcutrader.com/quepadre/30deldia/cahicas/209.jpg',
+        'https://calcutrader.com/quepadre/30deldia/cahicas/210.jpg',
+    ],
+    '2024-10-14': [
+        'https://calcutrader.com/quepadre/30deldia/chaicas/211.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chiacas/212.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chiacas/213.jpg',
+    ],
+    '2024-10-15': [
+        'https://calcutrader.com/quepadre/30deldia/chicaas/214.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicaas/215.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chaicas/216.jpg',
+    ],
+    '2024-10-16': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/217.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/218.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/219.jpg',
+    ],
+    '2024-10-17': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/220.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/221.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/222.jpg',
+    ],
+    '2024-10-18': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/223.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/224.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/225.jpg',
+    ],
+    '2024-10-19': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/226.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/227.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/228.jpg',
+    ],
+    '2024-10-20': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/229.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/230.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/231.jpg',
+    ],
+    '2024-10-21': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/232.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/233.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/234.jpg',
+    ],
+    '2024-10-22': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/235.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/236.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/237.jpg',
+    ],
+    '2024-10-23': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/238.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/239.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/240.jpg',
+    ],
+    '2024-10-24': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/241.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/242.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/243.jpg',
+    ],
+    '2024-10-25': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/244.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/245.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/246.jpg',
+    ],
+    '2024-10-26': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/247.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/248.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/249.jpg',
+    ],
+    '2024-10-27': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/250.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/251.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/252.jpg',
+    ],
+    '2024-10-28': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/253.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/254.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/255.jpg',
+    ],
+    '2024-10-29': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/256.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/257.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/258.jpg',
+    ],
+    '2024-10-30': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/259.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/260.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/261.jpg',
+    ],
+    '2024-10-31': [
+        'https://calcutrader.com/quepadre/30deldia/chicas/262.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/263.jpg',
+        'https://calcutrader.com/quepadre/30deldia/chicas/264.jpg',
+    ],
+};
+
+
+
+
+       function mostrarFechaActual() {
+			const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+			const fecha = new Date();
+			const idioma = navigator.language || navigator.userLanguage;
+			let fechaFormateada = fecha.toLocaleDateString(idioma, opciones);
+			fechaFormateada = fechaFormateada.charAt(0).toUpperCase() + fechaFormateada.slice(1);
+			document.getElementById('fechaActual').innerText = fechaFormateada;
+		}
+
+		function iniciarDescarga(index) {
+			// Obtener la URL de la imagen descargada
+			const imagenDescargada = document.getElementById(`downloadBtn${index}`).href;
+
+			// Mostrar el modal
+			const modal = document.getElementById('alertModal');
+			modal.style.display = 'block';
+
+			// Iniciar la descarga
+			const link = document.createElement('a');
+			link.href = imagenDescargada;
+			link.download = `imagen${index + 1}.jpg`;
+			document.body.appendChild(link);
+			link.click();
+
+			// Ocultar el modal después de un tiempo
+			setTimeout(() => {
+				modal.style.display = 'none';
+			}, 3000); // Oculta el modal después de 3 segundos (3000 milisegundos)
+		}
+
+		function cargarImagenesDelDia() {
+			const fecha = new Date();
+			const fechaISO = fecha.toLocaleDateString('en-CA'); // Cambia la fecha a formato YYYY-MM-DD local
+			const imagenes = imagenesPorDia[fechaISO];
+			const contenedor = document.getElementById('imagenesDelDia');
+
+			if (imagenes) {
+				imagenes.forEach((imagenSrc, index) => {
+					const div = document.createElement('div');
+					div.className = 'image-container';
+					div.innerHTML = `
+						<img src="${imagenSrc}" alt="Imagen del día ${index + 1}">
+						<br>
+						<a id="downloadBtn${index}" href="${imagenSrc}" class="button" download="imagen${index + 1}.jpg" data-index="${index}"><i class="fas fa-download"></i></a>
+					`;
+					contenedor.appendChild(div);
+
+					const downloadBtn = document.getElementById(`downloadBtn${index}`);
+					downloadBtn.addEventListener('click', (event) => {
+						event.preventDefault(); // Evitar que se abra la página de descarga
+						const index = event.target.dataset.index; // Obtener el índice de la imagen
+						iniciarDescarga(index); // Iniciar la descarga de la imagen
+					});
+				});
+			} else {
+				contenedor.innerHTML = '<p>No hay imágenes programadas para hoy.</p>';
+			}
+		}
+
+		function mostrarModal(index) {
+			const modal = document.getElementById('alertModal');
+			modal.style.display = 'block';
+			const closeModal = document.querySelector('.close');
+			closeModal.onclick = () => {
+				cerrarModal();
+			};
+			window.onclick = (event) => {
+				if (event.target === modal) {
+					cerrarModal();
+				}
+			};
+		}
+
+		function cerrarModal() {
+			const modal = document.getElementById('alertModal');
+			modal.style.display = 'none';
+		}
+
+
+function compartirApp() {
+    const url = encodeURIComponent(window.location.href);
+    const mensaje = `\n\nTe recomiendo esta increíble aplicación para que descubras  30 imágenes diferentes de cumpleaños cada día .Descárgala aquí:👇👇👇\n\nhttps://play.google.com/store/apps/details?id=com.tarjetitaspersonalizadas.tarjetitasquepadre`;
+    window.open(`https://api.whatsapp.com/send?text=${mensaje}`, '_blank');
+}
+
+
+
+		mostrarFechaActual();
+		cargarImagenesDelDia();
+    </script>
+</body>
+</html>
